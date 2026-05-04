@@ -22,14 +22,14 @@ public class TaxApplication {
                 case 1 ->  taxChoice = "incomeTax";
                 case 2 -> taxChoice = "propertyTax";
                 case 3 ->  {
-                	         taxChoice = "Existing...";
+                	         System.out.println("Exiting...");
                 	         
                 	            sc.close();
                 	            context.close();
                 	            return;
                 	            
                             }
-                case 4 ->{
+                default ->{
                 	   System.out.println("Invalid Choice");
                 	  continue;
                 }
@@ -38,16 +38,47 @@ public class TaxApplication {
                 }
                
                 Tax tax = (Tax)context.getBean(taxChoice); 
-                System.out.println(tax.isTaxPayed());
-                tax.setTaxableAmount(500000);
-                
-                tax.calculateTaxAmount();
-                System.out.println(tax.getTaxAmount());
-                System.out.println(tax.getTaxType());
-                tax.payTax();
-                
+//                System.out.println(tax.isTaxPayed());
+//                tax.setTaxableAmount(500000);
+//                
+//                tax.calculateTaxAmount();
+//                System.out.println(tax.getTaxAmount());
+//                System.out.println(tax.getTaxType());
+//                tax.payTax();
+//                
                 
                 //System.out.println(tax.isTaxPayed());
+               // tax.payTax();
+                   if(!tax.isTaxPayed()) {
+                System.out.println("Please enter your "+tax.getTaxType()+" value:");
+                 int amount = sc.nextInt();
+                 tax.setTaxableAmount(amount);
+                 tax.calculateTaxAmount();
+                 System.out.println("You have slected "+tax.getTaxType()+" tax and your tax amount is: "+tax.getTaxAmount());
+                 System.out.println("Do you want to pay the tax:\n1. Yes\n2. Exit");
+                 int choice = sc.nextInt();
+//                 switch(choice) {
+//                 case 1 ->   tax.payTax();
+//                 
+//                 case 2 ->  { 
+//                	          System.out.println("Pay the tax !");
+//                               continue;
+//                 }
+                 
+                 if(choice == 1) {
+                	 tax.payTax();
+                 
+                 }
+                 else {
+                	 System.out.println("Payment Skipped");
+                 }
+                   }
+                   else {
+                	   tax.payTax(); 
+                   }
+               
+                 
+                 
                 
                 
             }
